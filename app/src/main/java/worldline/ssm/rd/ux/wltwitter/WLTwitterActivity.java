@@ -1,6 +1,8 @@
 package worldline.ssm.rd.ux.wltwitter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +14,9 @@ public class WLTwitterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String login = getIntent().getExtras().getString("login");
+        getActionBar().setSubtitle(login);
     }
 
 
@@ -30,8 +35,12 @@ public class WLTwitterActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout) {
+            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences("credential", Context.MODE_PRIVATE);
+            prefs.edit().remove("login").commit();
+            prefs.edit().remove("pwd").commit();
+
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
