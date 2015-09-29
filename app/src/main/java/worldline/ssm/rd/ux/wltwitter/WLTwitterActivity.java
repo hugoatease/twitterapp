@@ -14,7 +14,6 @@ public class WLTwitterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         String login = getIntent().getExtras().getString("login");
         getActionBar().setSubtitle(login);
     }
@@ -36,10 +35,9 @@ public class WLTwitterActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences("credential", Context.MODE_PRIVATE);
+            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
             prefs.edit().remove("login").commit();
             prefs.edit().remove("pwd").commit();
-
             finish();
         }
 

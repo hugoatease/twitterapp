@@ -21,12 +21,12 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         setContentView(R.layout.activity_login);
         findViewById(R.id.loginButton).setOnClickListener(this);
 
-        SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences("credential", Context.MODE_PRIVATE);
+        SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
         String login = prefs.getString("login", "");
         String pwd = prefs.getString("pwd", "");
 
-        if(!login.isEmpty() && !pwd.isEmpty()){
-            nextActivity(login, pwd);
+        if (!login.isEmpty() && !pwd.isEmpty()) {
+            nextActivity(login);
         }
     }
 
@@ -54,20 +54,20 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        EditText loginEdit = ((EditText)findViewById(R.id.loginEditText));
-        EditText pwdEdit = ((EditText)findViewById(R.id.passwordEditText));
+        EditText loginEdit = ((EditText) findViewById(R.id.loginEditText));
+        EditText pwdEdit = ((EditText) findViewById(R.id.passwordEditText));
 
-        if(!TextUtils.isEmpty(loginEdit.getText()) && !TextUtils.isEmpty(pwdEdit.getText())){
-            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences("credential", Context.MODE_PRIVATE);
+        if (!TextUtils.isEmpty(loginEdit.getText()) && !TextUtils.isEmpty(pwdEdit.getText())) {
+            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
             prefs.edit().putString("login", loginEdit.getText().toString()).commit();
             prefs.edit().putString("pwd", pwdEdit.getText().toString()).commit();
-            nextActivity(loginEdit.getText().toString(), pwdEdit.getText().toString());
+            nextActivity(loginEdit.getText().toString());
         } else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void nextActivity(String login, String pwd){
+    private void nextActivity(String login) {
         Intent intent = new Intent(this, WLTwitterActivity.class);
         Bundle extras = new Bundle();
         extras.putString("login", login);
