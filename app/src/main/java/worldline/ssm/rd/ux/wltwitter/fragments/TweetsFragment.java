@@ -1,5 +1,6 @@
 package worldline.ssm.rd.ux.wltwitter.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,15 +18,17 @@ import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 import java.util.List;
 
-public class TweetsFragment extends Fragment implements TweetListener {
+public class TweetsFragment extends Fragment implements TweetListener, AdapterView.OnItemClickListener {
     private View rootView;
     private ListView tweetsView;
+    private ClickListener clickListener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.rootView = inflater.inflate(R.layout.fragment_tweets, container, false);
         this.tweetsView = (ListView) this.rootView.findViewById(R.id.tweetsListView);
+        this.tweetsView.setOnItemClickListener(this);
         return this.rootView;
     }
 
@@ -52,5 +55,26 @@ public class TweetsFragment extends Fragment implements TweetListener {
     public void onTweetsRetrieved(List<Tweet> tweets) {
         final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
         this.tweetsView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.clickListener = (ClickListener) activity;
+        }
+        catch(ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onTweetClicked");
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final Tweet tweet = (Tweet) parent.getItemAtPosition(position);
+        this.clickListener.onTweetClicked(tweet);
+    }
+
+    public interface ClickListener {
+        public void onTweetClicked(Tweet tweet);
     }
 }

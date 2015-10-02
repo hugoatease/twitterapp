@@ -7,11 +7,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+import worldline.ssm.rd.ux.wltwitter.fragments.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
+import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 
-public class WLTwitterActivity extends Activity {
+public class WLTwitterActivity extends Activity implements TweetsFragment.ClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +53,10 @@ public class WLTwitterActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTweetClicked(Tweet tweet) {
+        Toast.makeText(this, tweet.text, Toast.LENGTH_LONG).show();
     }
 }
