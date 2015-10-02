@@ -13,6 +13,7 @@
     <string name="login">Sign in</string>
     <string name="error_no_login">Empty login !</string>
     <string name="error_no_password">Empty password !</string>
+    <string name="error_no_login_and_password">Empty login and password !</string>
     <string name="action_settings">Title!</string>
     <string name="title_activity_login">Login</string>
     <string name="login_information">Login information</string>

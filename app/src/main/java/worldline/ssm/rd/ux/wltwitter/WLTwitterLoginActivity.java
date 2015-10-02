@@ -57,10 +57,16 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         EditText loginEdit = ((EditText) findViewById(R.id.loginEditText));
         EditText pwdEdit = ((EditText) findViewById(R.id.passwordEditText));
 
-        if(TextUtils.isEmpty(loginEdit.getText())){
-            Toast.makeText(this, R.string.error_no_login, Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(pwdEdit.getText())){
+        boolean emptyLogin = TextUtils.isEmpty(loginEdit.getText());
+        boolean emptyPwd = TextUtils.isEmpty(pwdEdit.getText());
+
+        if(emptyLogin && emptyPwd){
+            Toast.makeText(this, R.string.error_no_login_and_password, Toast.LENGTH_LONG).show();
+        } else if (emptyPwd){
             Toast.makeText(this, R.string.error_no_password, Toast.LENGTH_LONG).show();
+        }
+        else if(emptyLogin){
+            Toast.makeText(this, R.string.error_no_login, Toast.LENGTH_LONG).show();
         }
         else {
             SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
