@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="worldline.ssm.rd.ux.wltwitter" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".WLTwitterApplication"
         android:allowBackup="true"
