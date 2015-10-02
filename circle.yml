@@ -1,0 +1,7 @@
+test:
+  override:
+    - ./gradlew assemble
+
+general:
+  artifacts:
+    - "app/build/outputs/apk/app-release-unsigned.apk"
