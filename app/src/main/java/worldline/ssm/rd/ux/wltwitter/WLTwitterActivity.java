@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import worldline.ssm.rd.ux.wltwitter.http.TwitterAsyncTask;
+import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 
 
 public class WLTwitterActivity extends Activity {
@@ -18,7 +18,7 @@ public class WLTwitterActivity extends Activity {
         String login = getIntent().getExtras().getString("login");
         getActionBar().setSubtitle(login);
 
-        TwitterAsyncTask twitterTask = new TwitterAsyncTask();
+        TweetAsyncTask twitterTask = new TweetAsyncTask();
         twitterTask.execute(login);
     }
 
