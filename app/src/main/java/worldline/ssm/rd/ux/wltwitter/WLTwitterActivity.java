@@ -1,11 +1,13 @@
 package worldline.ssm.rd.ux.wltwitter;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 
 
@@ -18,8 +20,10 @@ public class WLTwitterActivity extends Activity {
         String login = getIntent().getExtras().getString("login");
         getActionBar().setSubtitle(login);
 
-        TweetAsyncTask twitterTask = new TweetAsyncTask();
-        twitterTask.execute(login);
+        TweetsFragment tweetsFragment = new TweetsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.main, tweetsFragment);
+        transaction.commit();
     }
 
 
