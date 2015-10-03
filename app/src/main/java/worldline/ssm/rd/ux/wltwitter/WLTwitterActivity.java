@@ -49,6 +49,7 @@ public class WLTwitterActivity extends Activity implements TweetsFragment.ClickL
             SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
             prefs.edit().remove("login").commit();
             prefs.edit().remove("pwd").commit();
+            prefs.edit().remove("remember").commit();
             finish();
         }
 

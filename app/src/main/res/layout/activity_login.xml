@@ -37,7 +37,9 @@
             android:layout_alignRight="@+id/passwordEditText"
             android:layout_alignEnd="@+id/passwordEditText"
             android:inputType="text"
-            android:hint="@string/loginHint" />
+            android:hint="@string/loginHint"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -50,7 +52,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignRight="@+id/loginButton"
-            android:layout_alignEnd="@+id/loginButton" />
+            android:layout_alignEnd="@+id/loginButton"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:fontFamily="sans-serif"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -61,6 +66,17 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/white_blue_round_corners_selector" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remember_me"
+            android:id="@+id/remember_me"
+            android:textColor="@color/abc_primary_text_disable_only_material_dark"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/passwordEditText"
+            android:layout_alignStart="@+id/passwordEditText" />
+
     </RelativeLayout>
 
 </RelativeLayout>

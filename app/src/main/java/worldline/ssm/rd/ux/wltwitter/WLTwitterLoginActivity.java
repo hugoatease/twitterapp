@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,11 +23,10 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         findViewById(R.id.loginButton).setOnClickListener(this);
 
         SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
-        String login = prefs.getString("login", "");
-        String pwd = prefs.getString("pwd", "");
+        String remember = prefs.getString("remember", "");
 
-        if (!login.isEmpty() && !pwd.isEmpty()) {
-            nextActivity(login);
+        if(!remember.isEmpty()){
+            nextActivity(prefs.getString("login", ""));
         }
     }
 
@@ -72,6 +72,12 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
             SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
             prefs.edit().putString("login", loginEdit.getText().toString()).commit();
             prefs.edit().putString("pwd", pwdEdit.getText().toString()).commit();
+
+            final CheckBox checkBox = (CheckBox) findViewById(R.id.remember_me);
+            if (checkBox.isChecked()) {
+                prefs.edit().putString("remember", findViewById(R.id.remember_me).toString()).commit();
+            }
+
             nextActivity(loginEdit.getText().toString());
         }
     }
