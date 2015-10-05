@@ -15,8 +15,12 @@ import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
+import worldline.ssm.rd.ux.wltwitter.utils.TweetAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TweetsFragment extends Fragment implements TweetListener, AdapterView.OnItemClickListener {
     private View rootView;
@@ -53,7 +57,7 @@ public class TweetsFragment extends Fragment implements TweetListener, AdapterVi
 
     @Override
     public void onTweetsRetrieved(List<Tweet> tweets) {
-        final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
+        TweetAdapter adapter = new TweetAdapter(getActivity(), R.layout.items_tweet, tweets);
         this.tweetsView.setAdapter(adapter);
     }
 

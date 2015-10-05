@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">WLTwitter</string>
+    <string name="about">About</string>
     <string name="hello_world">Hello world!</string>
     
     <!-- MENU -->
@@ -15,7 +16,7 @@
     <string name="error_no_password">Empty password !</string>
     <string name="error_no_login_and_password">Empty login and password !</string>
     <string name="action_settings">Title!</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">WLTwitter - Login</string>
     <string name="login_information">Login information</string>
     <string name="remember_me">Remember me</string>
 </resources>
