@@ -34,20 +34,25 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         Tweet tweet = getItem(position);
 
         if(tweet != null){
-            TextView tt1 = (TextView) v.findViewById(R.id.user);
-            TextView tt2 = (TextView) v.findViewById(R.id.content_tweet);
-            ImageView iv1 = (ImageView) v.findViewById(R.id.user_picture);
+            TextView userTextView = (TextView) v.findViewById(R.id.user);
+            TextView contentTextView = (TextView) v.findViewById(R.id.content_tweet);
+            TextView screenNameTextView = (TextView) v.findViewById(R.id.screenName);
+            ImageView userImageView = (ImageView) v.findViewById(R.id.user_picture);
 
-            if (tt1 != null) {
-                tt1.setText(tweet.user.name + " (@" + tweet.user.screenName + ")");
+            if (userTextView != null) {
+                userTextView.setText(tweet.user.name);
             }
 
-            if (tt2 != null) {
-                tt2.setText(tweet.text);
+            if(screenNameTextView != null){
+                screenNameTextView.setText("(@" + tweet.user.screenName + ")");
             }
 
-            if(iv1 != null){
-                new ImageLoadTask(iv1).execute(tweet.user.profileImageUrl);
+            if (contentTextView != null) {
+                contentTextView.setText(tweet.text);
+            }
+
+            if(userImageView != null){
+                new ImageLoadTask(userImageView).execute(tweet.user.profileImageUrl);
             }
         }
 

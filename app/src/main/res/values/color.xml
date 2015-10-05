@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_twitter">#FF44BBE3</color>
+    <color name="gray_screenName">#8899A6</color>
 </resources>
