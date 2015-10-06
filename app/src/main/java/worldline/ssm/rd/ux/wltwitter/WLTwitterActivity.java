@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import worldline.ssm.rd.ux.wltwitter.fragments.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 
-public class WLTwitterActivity extends Activity implements TweetsFragment.ClickListener {
+public class WLTwitterActivity extends Activity implements ClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

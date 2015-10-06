@@ -74,7 +74,5 @@ public class TweetsFragment extends Fragment implements TweetListener, AdapterVi
         this.clickListener.onTweetClicked(tweet);
     }
 
-    public interface ClickListener {
-        public void onTweetClicked(Tweet tweet);
-    }
+
 }
