@@ -1,9 +1,9 @@
-package worldline.ssm.rd.ux.wltwitter.fragments;
+package worldline.ssm.rd.ux.wltwitter.listeners;
 
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 import java.util.List;
 
 public interface TweetListener {
-    public void onTweetsRetrieved(List<Tweet> tweets);
+    void onTweetsRetrieved(List<Tweet> tweets);
 }

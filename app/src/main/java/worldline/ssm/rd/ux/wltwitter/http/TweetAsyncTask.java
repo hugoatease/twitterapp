@@ -2,7 +2,7 @@ package worldline.ssm.rd.ux.wltwitter.http;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import worldline.ssm.rd.ux.wltwitter.fragments.TweetListener;
+import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.helpers.TwitterHelper;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 

@@ -14,6 +14,8 @@ import android.widget.*;
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
+import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
+import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.utils.TweetAdapter;
 import java.util.List;
