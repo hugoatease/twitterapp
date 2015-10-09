@@ -5,10 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import worldline.ssm.rd.ux.wltwitter.fragments.TweetFragment;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
@@ -58,6 +59,6 @@ public class WLTwitterActivity extends Activity implements ClickListener {
 
     @Override
     public void onTweetClicked(Tweet tweet) {
-        Toast.makeText(this, tweet.text, Toast.LENGTH_LONG).show();
+        TweetFragment.newInstance(tweet);
     }
 }

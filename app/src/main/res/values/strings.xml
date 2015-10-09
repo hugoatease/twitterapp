@@ -19,4 +19,11 @@
     <string name="title_activity_login">WLTwitter - Login</string>
     <string name="login_information">Login information</string>
     <string name="remember_me">Remember me</string>
+
+
+    <!-- TWEET -->
+    <string name="retweet">RT</string>
+    <string name="content">Content</string>
+    <string name="alias">\(@alias)</string>
+    <string name="username">Username</string>
 </resources>
