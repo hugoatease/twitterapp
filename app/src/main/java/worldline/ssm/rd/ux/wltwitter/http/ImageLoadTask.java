@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+import worldline.ssm.rd.ux.wltwitter.helpers.TwitterHelper;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -20,18 +21,16 @@ public class ImageLoadTask extends AsyncTask<String, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(String... params) {
         try {
-            if(params[0] != null) {
-                URL urlConnection = new URL(params[0]);
-                HttpURLConnection connection = (HttpURLConnection) urlConnection
-                        .openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                return myBitmap;
+            if (params[0] != null) {
+                final Bitmap image = TwitterHelper.getTwitterUserImage(params[0]);
+                if (image != null) {
+                    return image;
+                }
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.getStackTrace();
         }
         return null;
     }

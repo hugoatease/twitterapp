@@ -63,7 +63,7 @@ public class TwitterHelper {
 		return getFakeTweets();
 	}
 
-	public static Bitmap getTwitterUserImage(String imageUrl) throws Exception{
+	public static Bitmap getTwitterUserImage(String imageUrl) throws Exception {
 		final HttpURLConnection connection = getHTTPUrlConnection(imageUrl);
 		connection.setRequestMethod("GET");
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
