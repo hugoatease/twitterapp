@@ -35,9 +35,6 @@ public class WLTwitterActivity extends Activity implements ClickListener {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.main, tweetsFragment);
         transaction.commit();
-
-        OauthAsyncTask oauthTask = new OauthAsyncTask();
-        oauthTask.execute();
     }
 
 

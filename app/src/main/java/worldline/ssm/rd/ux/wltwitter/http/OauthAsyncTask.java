@@ -1,16 +1,25 @@
 package worldline.ssm.rd.ux.wltwitter.http;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import worldline.ssm.rd.ux.wltwitter.listeners.TemporaryTokenListener;
 import worldline.ssm.rd.ux.wltwitter.utils.Constants;
 
 import java.io.IOException;
 
 public class OauthAsyncTask extends AsyncTask<Void, Void, OAuthCredentialsResponse> {
+    private TemporaryTokenListener listener;
+
+    public OauthAsyncTask(TemporaryTokenListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     protected OAuthCredentialsResponse doInBackground(Void... params) {
         OAuthHmacSigner signer = new OAuthHmacSigner();
@@ -31,7 +40,6 @@ public class OauthAsyncTask extends AsyncTask<Void, Void, OAuthCredentialsRespon
     @Override
     protected void onPostExecute(OAuthCredentialsResponse oAuthCredentialsResponse) {
         super.onPostExecute(oAuthCredentialsResponse);
-
-
+        this.listener.onTokenFetch(oAuthCredentialsResponse);
     }
 }

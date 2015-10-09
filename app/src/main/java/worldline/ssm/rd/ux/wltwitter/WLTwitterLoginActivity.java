@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,8 +14,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
+import worldline.ssm.rd.ux.wltwitter.http.OauthAsyncTask;
+import worldline.ssm.rd.ux.wltwitter.listeners.TemporaryTokenListener;
 
-public class WLTwitterLoginActivity extends Activity implements View.OnClickListener {
+public class WLTwitterLoginActivity extends Activity implements View.OnClickListener, TemporaryTokenListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,11 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         }
     }
 
+    private void oauthLogin() {
+        OauthAsyncTask oauthTask = new OauthAsyncTask(this);
+        oauthTask.execute();
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.loginButton) {
@@ -86,7 +95,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         }
 
         if (v.getId() == R.id.oauth_login) {
-            Toast.makeText(this, "OAUTH", Toast.LENGTH_LONG).show();
+            oauthLogin();
         }
     }
 
@@ -95,6 +104,13 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         Bundle extras = new Bundle();
         extras.putString("login", login);
         intent.putExtras(extras);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTokenFetch(OAuthCredentialsResponse credentials) {
+        Uri uri = Uri.parse("https://api.twitter.com/oauth/authorize?oauth_token=" + credentials.token);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 }
