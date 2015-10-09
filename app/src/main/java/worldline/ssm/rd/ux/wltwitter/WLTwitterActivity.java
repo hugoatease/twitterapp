@@ -9,9 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
+import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
+import com.google.api.client.auth.oauth.OAuthHmacSigner;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import worldline.ssm.rd.ux.wltwitter.http.OauthAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
+import worldline.ssm.rd.ux.wltwitter.utils.Constants;
+
+import java.io.IOException;
 
 
 public class WLTwitterActivity extends Activity implements ClickListener {
@@ -27,6 +35,9 @@ public class WLTwitterActivity extends Activity implements ClickListener {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.main, tweetsFragment);
         transaction.commit();
+
+        OauthAsyncTask oauthTask = new OauthAsyncTask();
+        oauthTask.execute();
     }
 
 

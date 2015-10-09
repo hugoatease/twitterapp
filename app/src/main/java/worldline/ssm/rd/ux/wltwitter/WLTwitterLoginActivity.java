@@ -21,6 +21,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViewById(R.id.loginButton).setOnClickListener(this);
+        findViewById(R.id.oauth_login).setOnClickListener(this);
 
         SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
         String remember = prefs.getString("remember", "");
@@ -52,11 +53,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        EditText loginEdit = ((EditText) findViewById(R.id.loginEditText));
-        EditText pwdEdit = ((EditText) findViewById(R.id.passwordEditText));
-
+    private void login(EditText loginEdit, EditText pwdEdit) {
         boolean emptyLogin = TextUtils.isEmpty(loginEdit.getText());
         boolean emptyPwd = TextUtils.isEmpty(pwdEdit.getText());
 
@@ -79,6 +76,17 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
             }
 
             nextActivity(loginEdit.getText().toString());
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.loginButton) {
+            login((EditText) findViewById(R.id.loginEditText), (EditText) findViewById(R.id.passwordEditText));
+        }
+
+        if (v.getId() == R.id.oauth_login) {
+            Toast.makeText(this, "OAUTH", Toast.LENGTH_LONG).show();
         }
     }
 

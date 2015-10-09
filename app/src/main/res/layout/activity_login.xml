@@ -25,7 +25,7 @@
         android:layout_marginTop="100dp"
         android:background="@drawable/blue_round_corners_background"
         android:padding="10dp"
-        android:layout_marginBottom="240dp">
+        android:layout_marginBottom="240dp" android:id="@+id/relativeLayout">
 
         <EditText
             android:layout_width="wrap_content"
@@ -78,5 +78,12 @@
             android:layout_alignStart="@+id/passwordEditText" />
 
     </RelativeLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OAuth login"
+            android:id="@+id/oauth_login"
+            android:layout_above="@+id/imageView" android:layout_centerHorizontal="true"
+            android:layout_marginBottom="29dp"/>
 
 </RelativeLayout>
