@@ -8,10 +8,15 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:paddingBottom="20dp"
+        android:background="@drawable/blue_round_corners_background"
+        android:layout_margin="5dp">
 
 
         <LinearLayout
@@ -27,10 +32,12 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/tweet_user_picture"
                 android:minHeight="48dp"
-                android:minWidth="48dp" />
+                android:minWidth="48dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp" />
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -41,15 +48,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tweet_user"
-                    android:text="Username"
-                    android:textColor="@color/blue_twitter" />
+                    android:text="@string/username"
+                    android:textColor="#fff"
+                    android:layout_marginTop="2dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tweet_alias"
-                    android:layout_marginTop="20dp"
-                    android:text="(\@alias)"
-                    android:textColor="@color/gray_screenName" />
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/alias"
+                    android:textColor="#000"
+                    android:layout_marginTop="2dp" />
 
             </LinearLayout>
 
@@ -65,46 +74,51 @@
             android:text="content"
             android:paddingBottom="25dp"
             android:paddingLeft="10dp"
-            android:paddingTop="10dp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Star"
-            android:id="@+id/tweet_star"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/blue_round_corners_background"
+            android:paddingTop="10dp"
             android:textColor="#fff" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tweet_reply"
-            android:layout_weight="0.5"
-            android:text="Reply"
-            android:background="@drawable/blue_round_corners_background"
-            android:textColor="#fff" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:id="@+id/tweet_retweet"
-            android:text="Retweet"
-            android:layout_gravity="right"
-            android:background="@drawable/blue_round_corners_background"
-            android:textColor="#fff" />
-    </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Star"
+                android:id="@+id/tweet_star"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/white_blue_round_corners_selector"
+                android:textColor="@color/blue_twitter"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tweet_reply"
+                android:layout_weight="0.5"
+                android:text="Reply"
+                android:background="@drawable/white_blue_round_corners_selector"
+                android:textColor="@color/blue_twitter"
+                android:layout_marginRight="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:id="@+id/tweet_retweet"
+                android:text="Retweet"
+                android:layout_gravity="right"
+                android:background="@drawable/white_blue_round_corners_selector"
+                android:textColor="@color/blue_twitter"
+                android:layout_marginRight="2dp" />
+        </LinearLayout>
 
 
     </LinearLayout>
