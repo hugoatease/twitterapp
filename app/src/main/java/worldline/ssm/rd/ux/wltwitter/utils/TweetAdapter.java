@@ -12,10 +12,11 @@ import java.util.List;
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.ImageLoadTask;
+import worldline.ssm.rd.ux.wltwitter.listeners.ButtonListener;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
-public class TweetAdapter extends RecyclerView.Adapter<TweetHolder>  {
+public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
 
     List<Tweet> listTweets;
     ClickListener clickListener;
@@ -60,13 +61,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder>  {
         }
     }
 
-
-
     @Override
     public int getItemCount() {
         if(listTweets == null){
           return 0;
         }
+
         return listTweets.size();
     }
 }

@@ -1,6 +1,8 @@
 package worldline.ssm.rd.ux.wltwitter.listeners;
 
 
-public interface ButtonListener {
+import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
+public interface ButtonListener {
+    void onButtonClicked(Tweet tweet);
 }

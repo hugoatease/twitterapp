@@ -9,14 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetFragment;
+import worldline.ssm.rd.ux.wltwitter.listeners.ButtonListener;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 
-public class WLTwitterActivity extends Activity implements ClickListener {
+public class WLTwitterActivity extends Activity implements ClickListener, ButtonListener {
 
     TweetsFragment tweetsFragment;
 
@@ -69,5 +71,10 @@ public class WLTwitterActivity extends Activity implements ClickListener {
         transaction.add(R.id.main, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onButtonClicked(Tweet tweet) {
+        Toast.makeText(this, "RT " + tweet.text, Toast.LENGTH_SHORT).show();
     }
 }

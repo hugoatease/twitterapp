@@ -51,7 +51,7 @@ public class TweetFragment extends Fragment {
         ImageView picture = (ImageView) this.rootView.findViewById(R.id.tweet_user_picture);
 
         username.setText(tweet.user.name);
-        alias.setText(tweet.user.screenName);
+        alias.setText("(@" + tweet.user.screenName + ")");
         content.setText(tweet.text);
         Picasso.with(WLTwitterApplication.getContext()).load(tweet.user.profileImageUrl).into(picture);
     }

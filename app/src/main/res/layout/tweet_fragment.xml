@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/tweet_fragment">
+    android:id="@+id/tweet_fragment"
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -33,8 +34,8 @@
                 android:id="@+id/tweet_user_picture"
                 android:minHeight="48dp"
                 android:minWidth="48dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="2dp" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -50,7 +51,9 @@
                     android:id="@+id/tweet_user"
                     android:text="@string/username"
                     android:textColor="#fff"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="5dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +61,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="@string/alias"
                     android:textColor="#000"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp" />
 
             </LinearLayout>
 
