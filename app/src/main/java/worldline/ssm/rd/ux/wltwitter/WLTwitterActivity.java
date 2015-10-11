@@ -1,6 +1,7 @@
 package worldline.ssm.rd.ux.wltwitter;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,6 +18,8 @@ import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 public class WLTwitterActivity extends Activity implements ClickListener {
 
+    TweetsFragment tweetsFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,7 @@ public class WLTwitterActivity extends Activity implements ClickListener {
         String login = getIntent().getExtras().getString("login");
         getActionBar().setSubtitle(login);
 
-        TweetsFragment tweetsFragment = new TweetsFragment();
+        tweetsFragment = new TweetsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.main, tweetsFragment);
         transaction.commit();
@@ -59,6 +62,12 @@ public class WLTwitterActivity extends Activity implements ClickListener {
 
     @Override
     public void onTweetClicked(Tweet tweet) {
-        TweetFragment.newInstance(tweet);
+        TweetFragment fragment = TweetFragment.newInstance(tweet);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(tweetsFragment);
+        transaction.add(R.id.main, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

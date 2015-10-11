@@ -26,4 +26,5 @@
     <string name="content">Content</string>
     <string name="alias">\(@alias)</string>
     <string name="username">Username</string>
+    <string name="parcelable">Tweet Parcelable</string>
 </resources>

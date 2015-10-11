@@ -1,43 +1,41 @@
 package worldline.ssm.rd.ux.wltwitter.utils;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.ImageLoadTask;
+import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
-public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
+public class TweetAdapter extends RecyclerView.Adapter<TweetHolder>  {
 
     List<Tweet> listTweets;
+    ClickListener clickListener;
 
-    public TweetAdapter(List<Tweet> tweets){
+    public TweetAdapter(List<Tweet> tweets, ClickListener listener){
         listTweets = tweets;
+        clickListener = listener;
     }
 
     @Override
     public TweetHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View v = LayoutInflater.from(WLTwitterApplication.getContext()).inflate(R.layout.items_tweet, parent, false);
-        TweetHolder holder = new TweetHolder(v, listTweets);
-        return holder;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_tweet, parent, false);
+        return new TweetHolder(v);
     }
 
     @Override
     public void onBindViewHolder(TweetHolder tweetHolder, int position) {
         if (position < getItemCount()) {
             final Tweet tweet = listTweets.get(position);
+            tweetHolder.setView(tweet, clickListener);
             if (tweet != null) {
                 if (tweetHolder.username != null) {
                     tweetHolder.username.setText(tweet.user.name);
@@ -52,7 +50,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
                 }
 
                 if (tweetHolder.picture != null) {
-                    new ImageLoadTask(tweetHolder.picture).execute(tweet.user.profileImageUrl);
+                    Picasso.with(WLTwitterApplication.getContext()).load(tweet.user.profileImageUrl).into(tweetHolder.picture);
                 }
 
                 if (tweetHolder.retweet != null) {
@@ -62,8 +60,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
         }
     }
 
+
+
     @Override
     public int getItemCount() {
+        if(listTweets == null){
+          return 0;
+        }
         return listTweets.size();
     }
 }

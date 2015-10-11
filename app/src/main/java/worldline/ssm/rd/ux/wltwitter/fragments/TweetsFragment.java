@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import worldline.ssm.rd.ux.wltwitter.R;
+import worldline.ssm.rd.ux.wltwitter.WLTwitterActivity;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
@@ -55,7 +56,7 @@ public class TweetsFragment extends Fragment implements TweetListener{
 
     @Override
     public void onTweetsRetrieved(List<Tweet> tweets) {
-        TweetAdapter adapter = new TweetAdapter(tweets);
+        TweetAdapter adapter = new TweetAdapter(tweets, (WLTwitterActivity) getActivity());
         this.tweetsView.setAdapter(adapter);
     }
 
