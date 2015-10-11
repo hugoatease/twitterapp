@@ -22,9 +22,12 @@
 
 
     <!-- TWEET -->
-    <string name="retweet">RT</string>
     <string name="content">Content</string>
     <string name="alias">\(@alias)</string>
     <string name="username">Username</string>
     <string name="parcelable">Tweet Parcelable</string>
+    <string name="star">Star</string>
+    <string name="reply">Reply</string>
+    <string name="short_retweet">RT</string>
+    <string name="retweet">Retweet</string>
 </resources>

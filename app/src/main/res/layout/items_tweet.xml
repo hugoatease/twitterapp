@@ -33,7 +33,7 @@
                 android:id="@+id/retweet"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="@string/retweet"
+                android:text="@string/short_retweet"
                 android:background="@drawable/white_blue_round_corners_selector"
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"

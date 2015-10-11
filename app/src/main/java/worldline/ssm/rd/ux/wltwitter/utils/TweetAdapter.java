@@ -55,7 +55,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
                 }
 
                 if (tweetHolder.retweet != null) {
-                    tweetHolder.retweet.setText("RT");
+                    tweetHolder.retweet.setText(R.string.short_retweet);
                 }
             }
         }
