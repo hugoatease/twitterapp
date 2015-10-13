@@ -50,15 +50,20 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
-            prefs.edit().remove("login").commit();
-            prefs.edit().remove("pwd").commit();
-            prefs.edit().remove("remember").commit();
-            finish();
+        switch(id){
+            case R.id.action_logout:
+                SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
+                prefs.edit().remove("login").commit();
+                prefs.edit().remove("pwd").commit();
+                prefs.edit().remove("remember").commit();
+                finish();
+                break;
+            case R.id.action_refresh:
+                tweetsFragment.onRefresh();
+                break;
+            default:
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

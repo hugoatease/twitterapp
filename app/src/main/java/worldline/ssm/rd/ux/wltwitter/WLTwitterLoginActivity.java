@@ -88,5 +88,6 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         extras.putString("login", login);
         intent.putExtras(extras);
         startActivity(intent);
+        overridePendingTransition(R.anim.down_in, R.anim.down_out);
     }
 }
