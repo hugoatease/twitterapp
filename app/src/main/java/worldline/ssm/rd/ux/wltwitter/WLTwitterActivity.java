@@ -74,7 +74,19 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
     }
 
     @Override
-    public void onButtonClicked(Tweet tweet) {
+    public void onRTButtonClicked(Tweet tweet) {
         Toast.makeText(this, "RT " + tweet.text, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onStarButtonClicked(Tweet tweet) {
+        Toast.makeText(this, tweet.text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onReplyButtonClicked(Tweet tweet) {
+        Toast.makeText(this, tweet.text, Toast.LENGTH_SHORT).show();
+    }
+
+
 }

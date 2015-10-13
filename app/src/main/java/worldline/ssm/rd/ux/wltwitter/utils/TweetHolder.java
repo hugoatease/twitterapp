@@ -46,7 +46,7 @@ public class TweetHolder extends RecyclerView.ViewHolder implements View.OnClick
     public void onClick(View v) {
         if(v instanceof Button){
             ButtonListener btnlistener = (ButtonListener) clickListener;
-            btnlistener.onButtonClicked(tweet);
+            btnlistener.onRTButtonClicked(tweet);
         } else {
             clickListener.onTweetClicked(tweet);
         }
