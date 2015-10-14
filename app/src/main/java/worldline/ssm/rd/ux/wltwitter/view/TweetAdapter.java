@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.utils;
+package worldline.ssm.rd.ux.wltwitter.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +11,6 @@ import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
-import worldline.ssm.rd.ux.wltwitter.http.ImageLoadTask;
-import worldline.ssm.rd.ux.wltwitter.listeners.ButtonListener;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 

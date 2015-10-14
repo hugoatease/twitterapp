@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.utils;
+package worldline.ssm.rd.ux.wltwitter.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

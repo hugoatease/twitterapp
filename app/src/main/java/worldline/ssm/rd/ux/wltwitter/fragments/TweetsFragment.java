@@ -22,7 +22,7 @@ import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
-import worldline.ssm.rd.ux.wltwitter.utils.TweetAdapter;
+import worldline.ssm.rd.ux.wltwitter.view.TweetAdapter;
 
 public class TweetsFragment extends Fragment implements TweetListener, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout rootView;
