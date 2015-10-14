@@ -22,11 +22,9 @@ import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 public class TweetFragment extends Fragment implements View.OnClickListener {
     private View rootView;
     private ButtonListener listener;
-
     private Tweet tweet;
-
-
-    public static TweetFragment newInstance(Tweet tweet){
+    
+    public static TweetFragment newInstance(Tweet tweet) {
         final TweetFragment tweetFragment = new TweetFragment();
         final Bundle arguments = new Bundle();
         arguments.putParcelable(WLTwitterApplication.getContext().getString(R.string.parcelable), tweet);
@@ -47,12 +45,12 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
         return this.rootView;
     }
 
-    public void load(){
+    public void load() {
         tweet = getArguments().getParcelable(getString(R.string.parcelable));
 
-        TextView username =  (TextView) this.rootView.findViewById(R.id.tweet_user);
-        TextView alias =  (TextView) this.rootView.findViewById(R.id.tweet_alias);
-        TextView content =  (TextView) this.rootView.findViewById(R.id.tweet_content);
+        TextView username = (TextView) this.rootView.findViewById(R.id.tweet_user);
+        TextView alias = (TextView) this.rootView.findViewById(R.id.tweet_alias);
+        TextView content = (TextView) this.rootView.findViewById(R.id.tweet_content);
         ImageView picture = (ImageView) this.rootView.findViewById(R.id.tweet_user_picture);
 
         Button rtButton = (Button) this.rootView.findViewById(R.id.tweet_retweet);
@@ -72,7 +70,7 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try{
+        try {
             listener = (ButtonListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement onRTButtonClicked, onStarButtonClicked and onReplyButtonClicked.");
@@ -82,7 +80,7 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Button button = (Button) v;
-        switch(button.getId()){
+        switch (button.getId()) {
             case R.id.tweet_reply:
                 listener.onReplyButtonClicked(tweet);
                 break;

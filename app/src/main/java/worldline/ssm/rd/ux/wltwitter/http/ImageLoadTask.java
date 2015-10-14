@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+
 import worldline.ssm.rd.ux.wltwitter.helpers.TwitterHelper;
 
 import java.io.InputStream;
@@ -28,8 +29,7 @@ public class ImageLoadTask extends AsyncTask<String, Void, Bitmap> {
                 }
                 return null;
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.getStackTrace();
         }
         return null;

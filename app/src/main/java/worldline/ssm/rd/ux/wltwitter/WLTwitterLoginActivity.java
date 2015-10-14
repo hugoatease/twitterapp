@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -25,7 +24,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
         String remember = prefs.getString("remember", "");
 
-        if(!remember.isEmpty()){
+        if (!remember.isEmpty()) {
             nextActivity(prefs.getString("login", ""));
         }
     }
@@ -60,15 +59,13 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         boolean emptyLogin = TextUtils.isEmpty(loginEdit.getText());
         boolean emptyPwd = TextUtils.isEmpty(pwdEdit.getText());
 
-        if(emptyLogin && emptyPwd){
+        if (emptyLogin && emptyPwd) {
             Toast.makeText(this, R.string.error_no_login_and_password, Toast.LENGTH_LONG).show();
-        } else if (emptyPwd){
+        } else if (emptyPwd) {
             Toast.makeText(this, R.string.error_no_password, Toast.LENGTH_LONG).show();
-        }
-        else if(emptyLogin){
+        } else if (emptyLogin) {
             Toast.makeText(this, R.string.error_no_login, Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
             prefs.edit().putString("login", loginEdit.getText().toString()).commit();
             prefs.edit().putString("pwd", pwdEdit.getText().toString()).commit();

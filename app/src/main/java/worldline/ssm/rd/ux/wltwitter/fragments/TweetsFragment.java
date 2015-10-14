@@ -13,7 +13,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+
+import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterActivity;
@@ -22,9 +23,8 @@ import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.utils.TweetAdapter;
-import java.util.List;
 
-public class TweetsFragment extends Fragment implements TweetListener, SwipeRefreshLayout.OnRefreshListener{
+public class TweetsFragment extends Fragment implements TweetListener, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout rootView;
     private RecyclerView tweetsView;
     private String login;
@@ -56,7 +56,6 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
             new TweetAsyncTask(this).execute(login);
         }
     }
-
 
 
     @Override
