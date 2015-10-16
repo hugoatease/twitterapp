@@ -18,7 +18,9 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
@@ -165,6 +167,28 @@ public class TwitterHelper {
 			tweets.add(tweet);
 		}
 		return tweets;
+	}
+
+	/**
+	 * Create a fake Tweet
+	 * @param name
+	 * @param screenName
+	 * @param text
+	 * @return
+	 */
+	public static Tweet getOneFakeTweet(String name, String screenName, String text){
+		TwitterUser user = new TwitterUser();
+		user.name = name;
+		user.screenName = screenName;
+		user.profileImageUrl = "http://example.com";
+
+		final Tweet tweet = new Tweet();
+		tweet.text = text;
+		tweet.user = user;
+
+		SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+		tweet.dateCreated = s.format(new Date());
+		return tweet;
 	}
 
 

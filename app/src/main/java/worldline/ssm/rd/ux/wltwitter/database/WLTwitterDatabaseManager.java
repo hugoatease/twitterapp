@@ -3,6 +3,7 @@ package worldline.ssm.rd.ux.wltwitter.database;
 import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
+import worldline.ssm.rd.ux.wltwitter.helpers.TwitterHelper;
 import worldline.ssm.rd.ux.wltwitter.helpers.WLTwitterDatabaseHelper;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.pojo.TwitterUser;
@@ -83,19 +84,54 @@ public class WLTwitterDatabaseManager {
 
         return values;
     }
-    
+
     public static void testContentProvider(List<Tweet> tweets){
         for(Tweet t: tweets){
-            WLTwitterApplication.getContext().getContentResolver().insert(
-                    WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(t));
+            insertTweetToDatabase(t);
         }
 
-        WLTwitterApplication.getContext().getContentResolver().update(
-                WLTwitterDatabaseContract.TWEETS_URI, null, null, null);
+        insertTweetToDatabase(TwitterHelper.getOneFakeTweet("King Toto", "Toto", "Et plouf ! "));
+        insertTweetToDatabase(TwitterHelper.getOneFakeTweet("Queen Tata", "Tata", "Et paf ! "));
 
-        WLTwitterApplication.getContext().getContentResolver().delete(
-                WLTwitterDatabaseContract.TWEETS_URI, null, null);
+        checkModification();
 
+        ContentValues newValues = new ContentValues();
+        newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
+
+        // Update sur le Tweet King Toto
+        int countUpdate = WLTwitterApplication.getContext().getContentResolver().update(
+                WLTwitterDatabaseContract.TWEETS_URI, newValues, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, new String[]{"King Toto"});
+
+        Log.d("Update, row count", Integer.toString(countUpdate));
+
+        checkModification();
+
+        // Delete le Tweet de Queen Tata
+        int isdelete = WLTwitterApplication.getContext().getContentResolver().delete(
+                WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, new String[]{"Queen Tata"});
+
+        Log.d("Delete, row count", Integer.toString(countUpdate));
+
+        checkModification();
     }
 
+    private static void insertTweetToDatabase(Tweet tweet){
+        WLTwitterApplication.getContext().getContentResolver().insert(
+                WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(tweet));
+    }
+
+    private static void checkModification(){
+        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper(WLTwitterApplication.getContext());
+        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
+
+        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
+        while(cursor.moveToNext()){
+            final String tweetUserName = cursor.getString(cursor.getColumnIndex(WLTwitterDatabaseContract.USER_NAME));
+            Log.d("Username: ", tweetUserName);
+        }
+
+        if(!cursor.isClosed()){
+            cursor.close();
+        }
+    }
 }

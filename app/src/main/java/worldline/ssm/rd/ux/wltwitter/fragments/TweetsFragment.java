@@ -76,7 +76,7 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
     public void onTweetsRetrieved(List<Tweet> tweets) {
         TweetAdapter adapter = new TweetAdapter(tweets, (WLTwitterActivity) getActivity());
         this.tweetsView.setAdapter(adapter);
-      //  WLTwitterDatabaseManager.testDatabase(tweets);
+
         WLTwitterDatabaseManager.testContentProvider(tweets);
         this.rootView.setRefreshing(false);
     }
@@ -109,7 +109,7 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
         if(data != null){
             while(data.moveToNext()){
                 final Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(data);
-                Log.d("TweetsFragment", tweet.toString());
+            //    Log.d("TweetsFragment", tweet.toString());
             }
 
             if(!data.isClosed()){
