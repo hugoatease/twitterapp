@@ -83,40 +83,11 @@ public class WLTwitterDatabaseManager {
 
         return values;
     }
-
-   /* public static void testDatabase(List<Tweet> tweets){
-        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper(WLTwitterApplication.getContext());
-        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
-
-        for(Tweet tweet: tweets){
-            final ContentValues contentValues = new ContentValues();
-            contentValues.put(WLTwitterDatabaseContract.USER_NAME, tweet.user.name);
-            contentValues.put(WLTwitterDatabaseContract.USER_ALIAS, tweet.user.screenName);
-            contentValues.put(WLTwitterDatabaseContract.USER_IMAGE_URL, tweet.user.profileImageUrl);
-            contentValues.put(WLTwitterDatabaseContract.TEXT, tweet.text);
-            contentValues.put(WLTwitterDatabaseContract.DATE_CREATED, tweet.dateCreated);
-            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS, "", contentValues);
-        }
-
-        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
-        while(cursor.moveToNext()){
-            final String tweetUserName = cursor.getString(cursor.getColumnIndex(WLTwitterDatabaseContract.USER_NAME));
-            Log.d("Username: ", tweetUserName);
-        }
-
-        if(!cursor.isClosed()){
-            cursor.close();
-        }
-    }*/
-
+    
     public static void testContentProvider(List<Tweet> tweets){
-        WLTwitterApplication.getContext().getContentResolver().query(
-                WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null);
-
-
         for(Tweet t: tweets){
             WLTwitterApplication.getContext().getContentResolver().insert(
-                    WLTwitterDatabaseContract.TWEETS_URI, getContentValues(t));
+                    WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(t));
         }
 
         WLTwitterApplication.getContext().getContentResolver().update(
@@ -125,16 +96,6 @@ public class WLTwitterDatabaseManager {
         WLTwitterApplication.getContext().getContentResolver().delete(
                 WLTwitterDatabaseContract.TWEETS_URI, null, null);
 
-    }
-
-    public static ContentValues getContentValues(Tweet tweet){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(WLTwitterDatabaseContract.USER_NAME, tweet.user.name);
-        contentValues.put(WLTwitterDatabaseContract.USER_ALIAS, tweet.user.screenName);
-        contentValues.put(WLTwitterDatabaseContract.USER_IMAGE_URL, tweet.user.profileImageUrl);
-        contentValues.put(WLTwitterDatabaseContract.TEXT, tweet.text);
-        contentValues.put(WLTwitterDatabaseContract.DATE_CREATED, tweet.dateCreated);
-        return contentValues;
     }
 
 }
