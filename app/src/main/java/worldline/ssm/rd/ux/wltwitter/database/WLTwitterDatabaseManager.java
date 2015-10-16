@@ -85,7 +85,7 @@ public class WLTwitterDatabaseManager {
         return values;
     }
 
-    public static void testContentProvider(List<Tweet> tweets){
+    public static void testContentProvider(List<Tweet> tweets, Boolean debug){
         for(Tweet t: tweets){
             insertTweetToDatabase(t);
         }
@@ -93,7 +93,7 @@ public class WLTwitterDatabaseManager {
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet("King Toto", "Toto", "Et plouf ! "));
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet("Queen Tata", "Tata", "Et paf ! "));
 
-        checkModification();
+        checkModification(debug);
 
         ContentValues newValues = new ContentValues();
         newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
@@ -104,7 +104,7 @@ public class WLTwitterDatabaseManager {
 
         Log.d("Update, row count", Integer.toString(countUpdate));
 
-        checkModification();
+        checkModification(debug);
 
         // Delete le Tweet de Queen Tata
         int isdelete = WLTwitterApplication.getContext().getContentResolver().delete(
@@ -112,7 +112,7 @@ public class WLTwitterDatabaseManager {
 
         Log.d("Delete, row count", Integer.toString(countUpdate));
 
-        checkModification();
+        checkModification(debug);
     }
 
     private static void insertTweetToDatabase(Tweet tweet){
@@ -120,7 +120,11 @@ public class WLTwitterDatabaseManager {
                 WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(tweet));
     }
 
-    private static void checkModification(){
+    private static void checkModification(boolean debug){
+        if(!debug){
+            return;
+        }
+
         final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper(WLTwitterApplication.getContext());
         final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
 
