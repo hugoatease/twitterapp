@@ -110,7 +110,7 @@ public class WLTwitterDatabaseManager {
         int isdelete = WLTwitterApplication.getContext().getContentResolver().delete(
                 WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, new String[]{"Queen Tata"});
 
-        Log.d("Delete, row count", Integer.toString(countUpdate));
+        Log.d("Delete, row count", Integer.toString(isdelete));
 
         checkModification(debug);
     }
