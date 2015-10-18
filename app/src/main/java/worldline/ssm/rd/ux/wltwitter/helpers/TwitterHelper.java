@@ -18,7 +18,6 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -183,14 +182,13 @@ public class TwitterHelper {
         TwitterUser user = new TwitterUser();
         user.name = name;
         user.screenName = screenName;
-        user.profileImageUrl = "http://example.com";
+        user.profileImageUrl = "http://worldline.com/etc/designs/neoweb/images/images-wl/worldline-logo.jpg";
 
         final Tweet tweet = new Tweet();
         tweet.text = text;
         tweet.user = user;
 
-        SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
-        tweet.dateCreated = s.format(new Date());
+        tweet.dateCreated = new Date().toString();
         return tweet;
     }
 
