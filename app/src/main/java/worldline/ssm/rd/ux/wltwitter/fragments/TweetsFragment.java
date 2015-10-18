@@ -3,14 +3,11 @@ package worldline.ssm.rd.ux.wltwitter.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.net.ContentHandler;
 import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
@@ -30,7 +26,6 @@ import worldline.ssm.rd.ux.wltwitter.WLTwitterActivity;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
 import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseManager;
-import worldline.ssm.rd.ux.wltwitter.helpers.WLTwitterDatabaseHelper;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
@@ -107,13 +102,13 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if(data != null){
-            while(data.moveToNext()){
+        if (data != null) {
+            while (data.moveToNext()) {
                 final Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(data);
-            //    Log.d("TweetsFragment", tweet.toString());
+                Log.d("TweetsFragment", tweet.toString());
             }
 
-            if(!data.isClosed()){
+            if (!data.isClosed()) {
                 data.close();
             }
         }

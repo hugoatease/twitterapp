@@ -23,7 +23,7 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
     private View rootView;
     private ButtonListener listener;
     private Tweet tweet;
-    
+
     public static TweetFragment newInstance(Tweet tweet) {
         final TweetFragment tweetFragment = new TweetFragment();
         final Bundle arguments = new Bundle();

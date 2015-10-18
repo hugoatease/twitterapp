@@ -1,6 +1,7 @@
 package worldline.ssm.rd.ux.wltwitter.provider;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -34,7 +35,7 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        if(mUriMatcher.match(uri) == TWEET_CORRECT_URI_CODE){
+        if (mUriMatcher.match(uri) == TWEET_CORRECT_URI_CODE) {
             return WLTwitterDatabaseContract.TWEETS_CONTENT_TYPE;
         }
         throw new IllegalArgumentException("Unknown URI " + uri);
@@ -44,12 +45,7 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         Log.i(Constants.General.LOG_TAG, "INSERT");
         final long rowID = mDBHelper.getReadableDatabase().insert(WLTwitterDatabaseContract.TABLE_TWEETS, null, values);
-
-        if(rowID != -1){
-            return uri;
-        }
-
-        return null;
+        return ContentUris.withAppendedId(uri, rowID);
     }
 
     @Override

@@ -21,9 +21,9 @@ public class WLTwitterDatabaseContract implements BaseColumns {
     private static final String TABLE_IMAGES_CREATE_SCRIPT_SUFFIX = "(" + _ID + " INTEGER PRIMARY KEY, " +
             DATE_CREATED + " TEXT NOT NULL, " +
             DATE_CREATED_TIMESTAMP + " INTEGER, " +
-            TEXT + " TEXT NOT NULL, "+
-            USER_NAME + " TEXT NOT NULL, "+
-            USER_ALIAS + " TEXT NOT NULL, "+
+            TEXT + " TEXT NOT NULL, " +
+            USER_NAME + " TEXT NOT NULL, " +
+            USER_ALIAS + " TEXT NOT NULL, " +
             USER_IMAGE_URL + " TEXT NOT NULL)";
 
     public static final String TABLE_TWEETS_CREATE_SCRIPT = TABLE_GENERIC_CREATE_SCRIPT_PREFIX +

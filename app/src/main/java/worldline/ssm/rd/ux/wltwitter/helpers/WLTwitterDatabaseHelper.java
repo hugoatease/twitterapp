@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
 
 
-public class WLTwitterDatabaseHelper extends SQLiteOpenHelper{
+public class WLTwitterDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "tweets.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
-    public WLTwitterDatabaseHelper(Context context){
+    public WLTwitterDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -19,7 +19,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
     List<Tweet> listTweets;
     ClickListener clickListener;
 
-    public TweetAdapter(List<Tweet> tweets, ClickListener listener){
+    public TweetAdapter(List<Tweet> tweets, ClickListener listener) {
         listTweets = tweets;
         clickListener = listener;
     }
@@ -61,8 +61,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetHolder> {
 
     @Override
     public int getItemCount() {
-        if(listTweets == null){
-          return 0;
+        if (listTweets == null) {
+            return 0;
         }
 
         return listTweets.size();

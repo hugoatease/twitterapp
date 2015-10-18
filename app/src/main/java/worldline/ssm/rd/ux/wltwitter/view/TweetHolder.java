@@ -5,13 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.listeners.ButtonListener;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 
 
-public class TweetHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class TweetHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public ImageView picture;
     public TextView username;
     public TextView alias;
@@ -35,7 +36,7 @@ public class TweetHolder extends RecyclerView.ViewHolder implements View.OnClick
     }
 
 
-    public void setView(Tweet tweet, ClickListener listener){
+    public void setView(Tweet tweet, ClickListener listener) {
         this.clickListener = listener;
         this.tweet = tweet;
         view.setOnClickListener(this);
@@ -44,7 +45,7 @@ public class TweetHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if(v instanceof Button){
+        if (v instanceof Button) {
             ButtonListener btnlistener = (ButtonListener) clickListener;
             btnlistener.onRTButtonClicked(tweet);
         } else {
