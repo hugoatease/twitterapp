@@ -2,17 +2,13 @@ package worldline.ssm.rd.ux.wltwitter.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.helpers.TwitterHelper;
-import worldline.ssm.rd.ux.wltwitter.helpers.WLTwitterDatabaseHelper;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.pojo.TwitterUser;
 
@@ -87,57 +83,34 @@ public class WLTwitterDatabaseManager {
         return values;
     }
 
-    public static void testContentProvider(List<Tweet> tweets, Boolean debug) {
+    public static void testContentProvider(List<Tweet> tweets) {
         for (Tweet t : tweets) {
             insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
         }
 
+        // Pour tester les fonctions update et delete, j'ai réalisé une fonction qui permet de créer un seul faux Tweet
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet("King Toto", "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet("Queen Tata", "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
 
-        checkModification(debug);
-
+        // Update sur le Tweet King Toto
         ContentValues newValues = new ContentValues();
         newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
-
-        // Update sur le Tweet King Toto
-        int countUpdate = WLTwitterApplication.getContext().getContentResolver().update(
-                WLTwitterDatabaseContract.TWEETS_URI, newValues, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, new String[]{"King Toto"});
-
-        Log.d("Update, row count", Integer.toString(countUpdate));
-
-        checkModification(debug);
+        WLTwitterApplication.getContext().getContentResolver().update(
+                WLTwitterDatabaseContract.TWEETS_URI,
+                newValues,
+                WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
+                new String[]{"King Toto"});
 
         // Delete le Tweet de Queen Tata
-        int isdelete = WLTwitterApplication.getContext().getContentResolver().delete(
-                WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, new String[]{"Queen Tata"});
+        WLTwitterApplication.getContext().getContentResolver().delete(
+                WLTwitterDatabaseContract.TWEETS_URI,
+                WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
+                new String[]{"Queen Tata"});
 
-        Log.d("Delete, row count", Integer.toString(isdelete));
-
-        checkModification(debug);
     }
 
     private static void insertTweetToDatabase(Tweet tweet, Uri uri) {
         WLTwitterApplication.getContext().getContentResolver().insert(
                 uri, tweetToContentValues(tweet));
-    }
-
-    private static void checkModification(boolean debug) {
-        if (!debug) {
-            return;
-        }
-
-        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper(WLTwitterApplication.getContext());
-        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
-
-        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            final String tweetUserName = cursor.getString(cursor.getColumnIndex(WLTwitterDatabaseContract.USER_NAME));
-            Log.d("Username: ", tweetUserName);
-        }
-
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
     }
 }
