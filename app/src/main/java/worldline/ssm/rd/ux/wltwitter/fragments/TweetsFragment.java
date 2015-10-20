@@ -72,7 +72,6 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
         TweetAdapter adapter = new TweetAdapter(tweets, (WLTwitterActivity) getActivity());
         this.tweetsView.setAdapter(adapter);
 
-        Boolean debug = true;
         WLTwitterDatabaseManager.testContentProvider(tweets);
         this.rootView.setRefreshing(false);
     }
