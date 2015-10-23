@@ -1,9 +1,13 @@
 package worldline.ssm.rd.ux.wltwitter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,16 +15,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetFragment;
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetsFragment;
 import worldline.ssm.rd.ux.wltwitter.listeners.ButtonListener;
 import worldline.ssm.rd.ux.wltwitter.listeners.ClickListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
+import worldline.ssm.rd.ux.wltwitter.receivers.NewTweetsReceiver;
+import worldline.ssm.rd.ux.wltwitter.services.TweetService;
+import worldline.ssm.rd.ux.wltwitter.utils.Constants;
 
 
 public class WLTwitterActivity extends Activity implements ClickListener, ButtonListener {
 
     TweetsFragment tweetsFragment;
+    PendingIntent mServicePendingIntent;
+    NewTweetsReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,33 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
         transaction.commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        final Calendar cal = Calendar.getInstance();
+        final Intent serviceIntent = new Intent(this, TweetService.class);
+        mServicePendingIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
+        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), Constants.Twitter.POLLING_DELAY, mServicePendingIntent);
+
+        mReceiver = new NewTweetsReceiver();
+        registerReceiver(mReceiver, new IntentFilter(Constants.General.ACTION_NEW_TWEETS));
+
+        Bundle extras = new Bundle();
+        extras.putString("login", getIntent().getExtras().getString("login"));
+        serviceIntent.putExtras(extras);
+        startService(serviceIntent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(mServicePendingIntent);
+        unregisterReceiver(mReceiver);
+        mReceiver = null;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

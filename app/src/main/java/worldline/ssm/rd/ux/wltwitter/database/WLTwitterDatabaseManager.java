@@ -101,17 +101,18 @@ public class WLTwitterDatabaseManager {
     }
 
 
-    public static void testContentProvider(List<Tweet> tweets) {
-        ContentResolver resolver = WLTwitterApplication.getContext().getContentResolver();
+    public static int testContentProvider(List<Tweet> tweets) {
 
-        resolver.delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+        int nbTweetsInserted = 0;
 
         for (Tweet t : tweets) {
             if (!doesContainTweet(t)) {
                 insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
+                nbTweetsInserted++;
             }
         }
 
+        return nbTweetsInserted;
       //  String userName1 = "King Toto";
      //   String userName2 = "Queen Tata";
 

@@ -31,4 +31,7 @@
     <string name="reply">Reply</string>
     <string name="short_retweet">RT</string>
     <string name="retweet">Retweet</string>
+
+    <!-- SERVICE -->
+    <string name="service_name">TweetService</string>
 </resources>

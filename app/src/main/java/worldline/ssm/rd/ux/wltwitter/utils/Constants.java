@@ -4,6 +4,8 @@ public class Constants {
 
 	public class General {
 		public static final String LOG_TAG = "WLTwitter";
+		public static final String ACTION_NEW_TWEETS = "NewTweet";
+		public static final String ACTION_NEW_TWEETS_EXTRA_NB_TWEETS = "nbNewTweet";
 	}
 	
 	public class Login {
@@ -23,6 +25,7 @@ public class Constants {
 		public static final String API_KEY = "zVbBgGOX1XWqmUFXAPN5A3xrb";
 		public static final String API_SECRET = "YNLBrvGSNXZs4H8Thpjz3isCS6UqAH3u2gyG7zHpBzYhiJLTiW";
 		public static final String DEFAULT_USERNAME = "rd_aw";
+		public static final long POLLING_DELAY = 1000;
 	}
 	
 }

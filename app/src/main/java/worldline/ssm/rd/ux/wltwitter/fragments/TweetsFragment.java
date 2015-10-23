@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -31,8 +32,9 @@ import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.adapters.TweetAdapter;
+import worldline.ssm.rd.ux.wltwitter.services.TweetService;
 
-public class TweetsFragment extends Fragment implements TweetListener, SwipeRefreshLayout.OnRefreshListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoaderManager.LoaderCallbacks<Cursor> {
     private SwipeRefreshLayout rootView;
     private RecyclerView tweetsView;
     private String login;
@@ -64,17 +66,9 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
                     rootView.setRefreshing(true);
                 }
             });
-            new TweetAsyncTask(this).execute(login);
         }
 
         getLoaderManager().initLoader(0, null, this);
-    }
-
-
-    @Override
-    public void onTweetsRetrieved(List<Tweet> tweets) {
-        WLTwitterDatabaseManager.testContentProvider(tweets);
-        this.rootView.setRefreshing(false);
     }
 
     @Override
@@ -85,7 +79,7 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
     @Override
     public void onRefresh() {
         if (!TextUtils.isEmpty(login)) {
-            new TweetAsyncTask(this).execute(login);
+      //      new TweetAsyncTask(this).execute(login); @TODO
         }
     }
 
@@ -96,7 +90,7 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
         cursorLoader.setProjection(WLTwitterDatabaseContract.PROJECTION_FULL);
         cursorLoader.setSelection(null);
         cursorLoader.setSelectionArgs(null);
-        cursorLoader.setSortOrder(null);
+        cursorLoader.setSortOrder(WLTwitterDatabaseContract.ORDER_BY_DATE_CREATED_TIMESTAMP_DESCENDING);
         return cursorLoader;
     }
 
@@ -104,7 +98,8 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         adapter = new TweetAdapter(getActivity(), cursor, (WLTwitterActivity) getActivity());
         this.tweetsView.setAdapter(adapter);
-        adapter.changeCursor(cursor);
+
+        this.rootView.setRefreshing(false);
     }
 
     @Override

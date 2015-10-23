@@ -28,6 +28,17 @@
             android:name="worldline.ssm.rd.ux.wltwitter.provider.WLTwitterDatabaseProvider"
             android:authorities="worldline.ssm.rd.ux.TweetAuthority"
             android:exported="false" />
+
+        <service
+            android:name="worldline.ssm.rd.ux.wltwitter.services.TweetService"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/service_name"
+            android:exported="false"/>
+
+        <receiver android:name=".receivers.NewTweetsReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>
