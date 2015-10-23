@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import worldline.ssm.rd.ux.wltwitter.fragments.TweetFragment;
@@ -71,7 +72,6 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
         TweetFragment fragment = TweetFragment.newInstance(tweet);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.remove(tweetsFragment);
         transaction.add(R.id.main, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -92,5 +92,9 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
         Toast.makeText(this, tweet.text, Toast.LENGTH_SHORT).show();
     }
 
+
+    public void onClickPrevious(View v){
+        onBackPressed();
+    }
 
 }

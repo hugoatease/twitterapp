@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CursorAdapter;
 
 import java.util.List;
 
@@ -29,17 +30,20 @@ import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseManager;
 import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
 import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
 import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
-import worldline.ssm.rd.ux.wltwitter.view.TweetAdapter;
+import worldline.ssm.rd.ux.wltwitter.adapters.TweetAdapter;
 
 public class TweetsFragment extends Fragment implements TweetListener, SwipeRefreshLayout.OnRefreshListener, LoaderManager.LoaderCallbacks<Cursor> {
     private SwipeRefreshLayout rootView;
     private RecyclerView tweetsView;
     private String login;
 
+    private TweetAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.rootView = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_tweets, container, false);
+
         this.tweetsView = (RecyclerView) this.rootView.findViewById(R.id.tweetsListView);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(WLTwitterApplication.getContext());
         this.tweetsView.setLayoutManager(layoutManager);
@@ -69,9 +73,6 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
 
     @Override
     public void onTweetsRetrieved(List<Tweet> tweets) {
-        TweetAdapter adapter = new TweetAdapter(tweets, (WLTwitterActivity) getActivity());
-        this.tweetsView.setAdapter(adapter);
-
         WLTwitterDatabaseManager.testContentProvider(tweets);
         this.rootView.setRefreshing(false);
     }
@@ -100,17 +101,10 @@ public class TweetsFragment extends Fragment implements TweetListener, SwipeRefr
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data != null) {
-            while (data.moveToNext()) {
-                final Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(data);
-                Log.d("TweetsFragment", tweet.toString());
-            }
-
-            if (!data.isClosed()) {
-                data.close();
-            }
-        }
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        adapter = new TweetAdapter(getActivity(), cursor, (WLTwitterActivity) getActivity());
+        this.tweetsView.setAdapter(adapter);
+        adapter.changeCursor(cursor);
     }
 
     @Override

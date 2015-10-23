@@ -1,5 +1,6 @@
 package worldline.ssm.rd.ux.wltwitter.database;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -83,29 +84,55 @@ public class WLTwitterDatabaseManager {
         return values;
     }
 
+    private static synchronized boolean doesContainTweet(Tweet tweet){
+        boolean result = false;
+        if ((null != tweet) && (!TextUtils.isEmpty(tweet.dateCreated))){
+            final Cursor cursor = WLTwitterApplication.getContext().getContentResolver().query(
+                    WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL,
+                    WLTwitterDatabaseContract.SELECTION_BY_CREATION_DATE, new String[]{tweet.dateCreated}, null);
+            if ((null != cursor) && (cursor.moveToFirst())) {
+                result = true;
+            }
+            if ((null != cursor) && (!cursor.isClosed())) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
+
     public static void testContentProvider(List<Tweet> tweets) {
+        ContentResolver resolver = WLTwitterApplication.getContext().getContentResolver();
+
+        resolver.delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+
         for (Tweet t : tweets) {
-            insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
+            if (!doesContainTweet(t)) {
+                insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
+            }
         }
 
+      //  String userName1 = "King Toto";
+     //   String userName2 = "Queen Tata";
+
         // Pour tester les fonctions update et delete, j'ai réalisé une fonction qui permet de créer un seul faux Tweet
-        insertTweetToDatabase(TwitterHelper.getOneFakeTweet("King Toto", "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
-        insertTweetToDatabase(TwitterHelper.getOneFakeTweet("Queen Tata", "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
+      //  insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName1, "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
+     //   insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName2, "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
 
         // Update sur le Tweet King Toto
-        ContentValues newValues = new ContentValues();
+     /*   ContentValues newValues = new ContentValues();
         newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
         WLTwitterApplication.getContext().getContentResolver().update(
                 WLTwitterDatabaseContract.TWEETS_URI,
                 newValues,
                 WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
-                new String[]{"King Toto"});
+                new String[]{userName1});*/
 
         // Delete le Tweet de Queen Tata
-        WLTwitterApplication.getContext().getContentResolver().delete(
+        /*WLTwitterApplication.getContext().getContentResolver().delete(
                 WLTwitterDatabaseContract.TWEETS_URI,
                 WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
-                new String[]{"Queen Tata"});
+                new String[]{userName2});*/
 
     }
 
