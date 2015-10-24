@@ -6,6 +6,7 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -15,24 +16,21 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 
-import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterActivity;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
-import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
-import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseManager;
-import worldline.ssm.rd.ux.wltwitter.http.TweetAsyncTask;
-import worldline.ssm.rd.ux.wltwitter.listeners.TweetListener;
-import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 import worldline.ssm.rd.ux.wltwitter.adapters.TweetAdapter;
+import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
+import worldline.ssm.rd.ux.wltwitter.receivers.NewTweetsReceiver;
+import worldline.ssm.rd.ux.wltwitter.receivers.RefreshLayoutStartReceiver;
+import worldline.ssm.rd.ux.wltwitter.receivers.RefreshLayoutStopReceiver;
 import worldline.ssm.rd.ux.wltwitter.services.TweetService;
+import worldline.ssm.rd.ux.wltwitter.utils.Constants;
 
 public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoaderManager.LoaderCallbacks<Cursor> {
     private SwipeRefreshLayout rootView;
@@ -40,6 +38,8 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private String login;
 
     private TweetAdapter adapter;
+    private RefreshLayoutStartReceiver refreshLayoutStartReceiver;
+    private RefreshLayoutStopReceiver refreshLayoutStopReceiver;
 
     @Nullable
     @Override
@@ -59,16 +59,16 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         SharedPreferences prefs = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE);
         login = prefs.getString("login", "");
 
-        if (!TextUtils.isEmpty(login)) {
-            this.rootView.post(new Runnable() {
-                @Override
-                public void run() {
-                    rootView.setRefreshing(true);
-                }
-            });
-        }
-
+        setReceivers();
         getLoaderManager().initLoader(0, null, this);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(refreshLayoutStartReceiver);
+        refreshLayoutStartReceiver = null;
     }
 
     @Override
@@ -79,7 +79,15 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh() {
         if (!TextUtils.isEmpty(login)) {
-      //      new TweetAsyncTask(this).execute(login); @TODO
+            final Intent serviceIntent = new Intent(getActivity(), TweetService.class);
+
+            NewTweetsReceiver mReceiver = new NewTweetsReceiver();
+            getActivity().registerReceiver(mReceiver, new IntentFilter(Constants.General.ACTION_NEW_TWEETS));
+
+            Bundle extras = new Bundle();
+            extras.putString("login", login);
+            serviceIntent.putExtras(extras);
+            getActivity().startService(serviceIntent);
         }
     }
 
@@ -98,8 +106,15 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         adapter = new TweetAdapter(getActivity(), cursor, (WLTwitterActivity) getActivity());
         this.tweetsView.setAdapter(adapter);
+        adapter.changeCursor(cursor);
+    }
 
-        this.rootView.setRefreshing(false);
+
+    private void setReceivers(){
+        refreshLayoutStartReceiver = new RefreshLayoutStartReceiver(this.rootView);
+        refreshLayoutStopReceiver = new RefreshLayoutStopReceiver(this.rootView);
+        getActivity().registerReceiver(refreshLayoutStartReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STARTED));
+        getActivity().registerReceiver(refreshLayoutStopReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STOPPED));
     }
 
     @Override

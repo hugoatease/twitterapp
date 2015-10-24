@@ -6,6 +6,8 @@ public class Constants {
 		public static final String LOG_TAG = "WLTwitter";
 		public static final String ACTION_NEW_TWEETS = "NewTweet";
 		public static final String ACTION_NEW_TWEETS_EXTRA_NB_TWEETS = "nbNewTweet";
+		public static final String ACTION_SERVICE_STARTED = "Service started";
+		public static final String ACTION_SERVICE_STOPPED = "Service stopped";
 	}
 	
 	public class Login {

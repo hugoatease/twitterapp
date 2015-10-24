@@ -39,6 +39,10 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver android:name=".receivers.RefreshLayoutStartReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

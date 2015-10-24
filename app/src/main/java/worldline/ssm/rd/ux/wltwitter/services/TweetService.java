@@ -35,7 +35,19 @@ public class TweetService extends Service implements TweetListener {
             new TweetAsyncTask(this).execute(login);
         }
 
+        refreshLayoutStartBroadcast();
+
         return Service.START_NOT_STICKY;
+    }
+
+    private void refreshLayoutStartBroadcast(){
+        final Intent startServiceIntent = new Intent(Constants.General.ACTION_SERVICE_STARTED);
+        sendBroadcast(startServiceIntent);
+    }
+
+    private void refreshLayoutStopBroadcast(){
+        final Intent stopServiceIntent = new Intent(Constants.General.ACTION_SERVICE_STOPPED);
+        sendBroadcast(stopServiceIntent);
     }
 
     @Override
@@ -49,5 +61,6 @@ public class TweetService extends Service implements TweetListener {
         extras.putInt(Constants.General.ACTION_NEW_TWEETS_EXTRA_NB_TWEETS, nbTweetsInserted);
         newTweetsIntent.putExtras(extras);
         sendBroadcast(newTweetsIntent);
+        refreshLayoutStopBroadcast();
     }
 }

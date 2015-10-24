@@ -50,11 +50,18 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
     public void onResume() {
         super.onResume();
 
-        final Calendar cal = Calendar.getInstance();
+        launchService(true);
+    }
+
+    private void launchService(Boolean alarm) {
         final Intent serviceIntent = new Intent(this, TweetService.class);
-        mServicePendingIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
-        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), Constants.Twitter.POLLING_DELAY, mServicePendingIntent);
+
+        if (alarm) {
+            final Calendar cal = Calendar.getInstance();
+            mServicePendingIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
+            final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), Constants.Twitter.POLLING_DELAY, mServicePendingIntent);
+        }
 
         mReceiver = new NewTweetsReceiver();
         registerReceiver(mReceiver, new IntentFilter(Constants.General.ACTION_NEW_TWEETS));
@@ -68,7 +75,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
     @Override
     protected void onPause() {
         super.onPause();
-        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(mServicePendingIntent);
         unregisterReceiver(mReceiver);
         mReceiver = null;
@@ -98,7 +105,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
                 break;
             case R.id.action_refresh:
                 Toast.makeText(getApplicationContext(), getString(R.string.refresh_action), Toast.LENGTH_LONG).show();
-                tweetsFragment.onRefresh();
+                launchService(false);
                 break;
             default:
                 break;
@@ -132,7 +139,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
     }
 
 
-    public void onClickPrevious(View v){
+    public void onClickPrevious(View v) {
         onBackPressed();
     }
 
