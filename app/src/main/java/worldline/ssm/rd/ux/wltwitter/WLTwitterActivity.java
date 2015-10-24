@@ -97,6 +97,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
                 finish();
                 break;
             case R.id.action_refresh:
+                Toast.makeText(getApplicationContext(), getString(R.string.refresh_action), Toast.LENGTH_LONG).show();
                 tweetsFragment.onRefresh();
                 break;
             default:

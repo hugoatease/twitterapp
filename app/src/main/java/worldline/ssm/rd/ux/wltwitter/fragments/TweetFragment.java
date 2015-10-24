@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,9 +54,9 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
         TextView content = (TextView) this.rootView.findViewById(R.id.tweet_content);
         ImageView picture = (ImageView) this.rootView.findViewById(R.id.tweet_user_picture);
 
-        Button rtButton = (Button) this.rootView.findViewById(R.id.tweet_retweet);
-        Button starButton = (Button) this.rootView.findViewById(R.id.tweet_star);
-        Button replyButton = (Button) this.rootView.findViewById(R.id.tweet_reply);
+        ImageButton rtButton = (ImageButton) this.rootView.findViewById(R.id.tweet_retweet);
+        ImageButton starButton = (ImageButton) this.rootView.findViewById(R.id.tweet_star);
+        ImageButton replyButton = (ImageButton) this.rootView.findViewById(R.id.tweet_reply);
 
         rtButton.setOnClickListener(this);
         starButton.setOnClickListener(this);
@@ -79,7 +80,7 @@ public class TweetFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Button button = (Button) v;
+        ImageButton button = (ImageButton) v;
         switch (button.getId()) {
             case R.id.tweet_reply:
                 listener.onReplyButtonClicked(tweet);

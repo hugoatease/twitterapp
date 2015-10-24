@@ -8,6 +8,7 @@
     <!-- MENU -->
     <string name="action_logout">Logout</string>
     <string name="action_refresh">Refresh</string>
+    <string name="refresh_action">Récupération des tweets</string>
 
     <!-- LOGIN -->
     <string name="loginHint">Your Twitter login</string>
@@ -34,4 +35,7 @@
 
     <!-- SERVICE -->
     <string name="service_name">TweetService</string>
+
+    <!-- Notification -->
+    <string name="new_notification">Vous avez %s nouveaux tweets</string>
 </resources>
