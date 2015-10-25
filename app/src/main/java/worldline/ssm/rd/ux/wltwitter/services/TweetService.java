@@ -52,15 +52,20 @@ public class TweetService extends Service implements TweetListener {
 
     @Override
     public void onTweetsRetrieved(List<Tweet> tweets) {
-        int nbTweetsInserted = WLTwitterDatabaseManager.testContentProvider(tweets);
-        stopSelf();
         Log.d("TweetService", "Stop");
+        int nbTweetsInserted = 0;
 
-        final Intent newTweetsIntent = new Intent(Constants.General.ACTION_NEW_TWEETS);
-        final Bundle extras = new Bundle();
-        extras.putInt(Constants.General.ACTION_NEW_TWEETS_EXTRA_NB_TWEETS, nbTweetsInserted);
-        newTweetsIntent.putExtras(extras);
-        sendBroadcast(newTweetsIntent);
+        nbTweetsInserted = WLTwitterDatabaseManager.testContentProvider(tweets);
+
+        if(nbTweetsInserted > 0){
+            final Intent newTweetsIntent = new Intent(Constants.General.ACTION_NEW_TWEETS);
+            final Bundle extras = new Bundle();
+            extras.putInt(Constants.General.ACTION_NEW_TWEETS_EXTRA_NB_TWEETS, nbTweetsInserted);
+            newTweetsIntent.putExtras(extras);
+            sendBroadcast(newTweetsIntent);
+        }
+
         refreshLayoutStopBroadcast();
+        stopSelf();
     }
 }

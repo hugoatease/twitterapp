@@ -13,10 +13,7 @@ public class NewTweetsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final int nbNewTweets = intent.getExtras().getInt(Constants.General.ACTION_NEW_TWEETS_EXTRA_NB_TWEETS);
-
         Log.d("onReceive, nbTweets", Integer.toString(nbNewTweets));
-        if(nbNewTweets > 0){
-            NotificationHelper.displayNotification(nbNewTweets);
-        }
+        NotificationHelper.displayNotification(nbNewTweets);
     }
 }

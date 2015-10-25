@@ -1,6 +1,5 @@
 package worldline.ssm.rd.ux.wltwitter.database;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -102,7 +101,6 @@ public class WLTwitterDatabaseManager {
 
 
     public static int testContentProvider(List<Tweet> tweets) {
-
         int nbTweetsInserted = 0;
 
         for (Tweet t : tweets) {
@@ -112,32 +110,36 @@ public class WLTwitterDatabaseManager {
             }
         }
 
+        //testUpdateAndDelete();
+
         return nbTweetsInserted;
-      //  String userName1 = "King Toto";
-     //   String userName2 = "Queen Tata";
+    }
+
+    public static void testUpdateAndDelete(){
+        String userName1 = "King Toto";
+        String userName2 = "Queen Tata";
 
         // Pour tester les fonctions update et delete, j'ai réalisé une fonction qui permet de créer un seul faux Tweet
-      //  insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName1, "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
-     //   insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName2, "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
+        insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName1, "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
+        insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName2, "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
 
-        // Update sur le Tweet King Toto
-     /*   ContentValues newValues = new ContentValues();
+         // Update sur le Tweet King Toto
+        ContentValues newValues = new ContentValues();
         newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
         WLTwitterApplication.getContext().getContentResolver().update(
                 WLTwitterDatabaseContract.TWEETS_URI,
                 newValues,
                 WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
-                new String[]{userName1});*/
+                new String[]{userName1});
 
         // Delete le Tweet de Queen Tata
-        /*WLTwitterApplication.getContext().getContentResolver().delete(
+        WLTwitterApplication.getContext().getContentResolver().delete(
                 WLTwitterDatabaseContract.TWEETS_URI,
                 WLTwitterDatabaseContract.SELECTION_BY_USER_NAME,
-                new String[]{userName2});*/
-
+                new String[]{userName2});
     }
 
-    private static void insertTweetToDatabase(Tweet tweet, Uri uri) {
+    public static void insertTweetToDatabase(Tweet tweet, Uri uri) {
         WLTwitterApplication.getContext().getContentResolver().insert(
                 uri, tweetToContentValues(tweet));
     }

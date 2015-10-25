@@ -3,6 +3,7 @@ package worldline.ssm.rd.ux.wltwitter.helpers;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
 
@@ -19,6 +20,7 @@ public class WLTwitterDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(WLTwitterDatabaseContract.TABLE_TWEETS_CREATE_SCRIPT);
+        Log.d("Database", "OK");
 
     }
 
