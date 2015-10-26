@@ -67,10 +67,16 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(refreshLayoutStartReceiver);
-        refreshLayoutStartReceiver = null;
-        getActivity().unregisterReceiver(refreshLayoutStopReceiver);
-        refreshLayoutStopReceiver = null;
+
+        if(refreshLayoutStartReceiver != null){
+            getActivity().unregisterReceiver(refreshLayoutStartReceiver);
+            refreshLayoutStartReceiver = null;
+        }
+
+        if(refreshLayoutStopReceiver != null){
+            getActivity().unregisterReceiver(refreshLayoutStopReceiver);
+            refreshLayoutStopReceiver = null;
+        }
     }
 
     @Override

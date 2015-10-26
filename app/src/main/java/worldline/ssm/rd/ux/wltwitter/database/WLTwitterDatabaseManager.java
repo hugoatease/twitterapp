@@ -100,7 +100,7 @@ public class WLTwitterDatabaseManager {
     }
 
 
-    public static int testContentProvider(List<Tweet> tweets) {
+    public static int insertTweets(List<Tweet> tweets) {
         int nbTweetsInserted = 0;
 
         for (Tweet t : tweets) {
@@ -110,12 +110,15 @@ public class WLTwitterDatabaseManager {
             }
         }
 
-        //testUpdateAndDelete();
-
         return nbTweetsInserted;
     }
 
-    public static void testUpdateAndDelete(){
+    public static void testContentProvider(List<Tweet> tweets){
+        for (Tweet t : tweets) {
+            if (!doesContainTweet(t)) {
+                insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
+            }
+        }
         String userName1 = "King Toto";
         String userName2 = "Queen Tata";
 

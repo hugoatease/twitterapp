@@ -11,7 +11,7 @@ import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
 public class WLTwitterDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "tweets.db";
-    private static final int DATABASE_VERSION = 17;
+    private static final int DATABASE_VERSION = 18;
 
     public WLTwitterDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

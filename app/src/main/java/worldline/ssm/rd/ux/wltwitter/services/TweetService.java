@@ -55,7 +55,7 @@ public class TweetService extends Service implements TweetListener {
         Log.d("TweetService", "Stop");
         int nbTweetsInserted = 0;
 
-        nbTweetsInserted = WLTwitterDatabaseManager.testContentProvider(tweets);
+        nbTweetsInserted = WLTwitterDatabaseManager.insertTweets(tweets);
 
         if(nbTweetsInserted > 0){
             final Intent newTweetsIntent = new Intent(Constants.General.ACTION_NEW_TWEETS);
