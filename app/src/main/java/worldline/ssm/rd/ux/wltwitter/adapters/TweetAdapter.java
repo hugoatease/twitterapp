@@ -2,14 +2,11 @@ package worldline.ssm.rd.ux.wltwitter.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
@@ -22,7 +19,7 @@ public class TweetAdapter extends CursorRecyclerViewAdapter<TweetHolder> impleme
 
     ClickListener clickListener;
 
-    public TweetAdapter(Context context, Cursor c, ClickListener listener){
+    public TweetAdapter(Context context, Cursor c, ClickListener listener) {
         super(context, c);
         clickListener = listener;
     }

@@ -16,13 +16,14 @@ import worldline.ssm.rd.ux.wltwitter.WLTwitterLoginActivity;
 
 public class NotificationHelper {
 
-    public static void displayNotification(int nbTweets){
+    public static void displayNotification(int nbTweets) {
         final Context context = WLTwitterApplication.getContext();
+
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(String.format(context.getString(R.string.new_notification), nbTweets))
+                .setContentText(String.format(getContentText(context, nbTweets), nbTweets))
                 .setAutoCancel(true);
 
         final Intent newIntent = new Intent(context, WLTwitterLoginActivity.class);
@@ -31,7 +32,7 @@ public class NotificationHelper {
         final TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(WLTwitterLoginActivity.class);
         stackBuilder.addNextIntent(newIntent);
-        final PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(42, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
 
         final Notification notification = builder.build();
@@ -40,5 +41,13 @@ public class NotificationHelper {
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(42, notification);
+    }
+
+    private static String getContentText(Context context, int nbTweets){
+        if(nbTweets == 1){
+            return context.getString(R.string.new_tweet_notification);
+        } else {
+            return context.getString(R.string.new_tweets_notification);
+        }
     }
 }

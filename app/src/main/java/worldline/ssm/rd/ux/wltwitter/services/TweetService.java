@@ -31,7 +31,7 @@ public class TweetService extends Service implements TweetListener {
         Log.d("TweetService", "Start");
         String login = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_information), Context.MODE_PRIVATE).getString("login", "");
 
-        if(login != ""){
+        if (login != "") {
             new TweetAsyncTask(this).execute(login);
         }
 
@@ -40,12 +40,12 @@ public class TweetService extends Service implements TweetListener {
         return Service.START_NOT_STICKY;
     }
 
-    private void refreshLayoutStartBroadcast(){
+    private void refreshLayoutStartBroadcast() {
         final Intent startServiceIntent = new Intent(Constants.General.ACTION_SERVICE_STARTED);
         sendBroadcast(startServiceIntent);
     }
 
-    private void refreshLayoutStopBroadcast(){
+    private void refreshLayoutStopBroadcast() {
         final Intent stopServiceIntent = new Intent(Constants.General.ACTION_SERVICE_STOPPED);
         sendBroadcast(stopServiceIntent);
     }
@@ -57,7 +57,7 @@ public class TweetService extends Service implements TweetListener {
 
         nbTweetsInserted = WLTwitterDatabaseManager.insertTweets(tweets);
 
-        if(nbTweetsInserted > 0){
+        if (nbTweetsInserted > 0) {
             final Intent newTweetsIntent = new Intent(Constants.General.ACTION_NEW_TWEETS);
             final Bundle extras = new Bundle();
             extras.putInt(Constants.General.ACTION_NEW_TWEETS_EXTRA_NB_TWEETS, nbTweetsInserted);

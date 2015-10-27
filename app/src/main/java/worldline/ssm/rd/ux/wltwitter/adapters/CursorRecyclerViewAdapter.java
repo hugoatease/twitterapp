@@ -22,13 +22,6 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
-import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
-import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseManager;
-import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
-import worldline.ssm.rd.ux.wltwitter.view.TweetHolder;
-
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     private Context mContext;
@@ -56,7 +49,6 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     public Cursor getCursor() {
         return mCursor;
     }
-
 
 
     @Override

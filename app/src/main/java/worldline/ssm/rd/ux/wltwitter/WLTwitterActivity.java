@@ -63,6 +63,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), Constants.Twitter.POLLING_DELAY, mServicePendingIntent);
         }
 
+        unregisterNewTweetReceiver();
         mReceiver = new NewTweetsReceiver();
         registerReceiver(mReceiver, new IntentFilter(Constants.General.ACTION_NEW_TWEETS));
 
@@ -77,8 +78,7 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
         super.onPause();
         final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(mServicePendingIntent);
-        unregisterReceiver(mReceiver);
-        mReceiver = null;
+        unregisterNewTweetReceiver();
     }
 
     @Override
@@ -111,6 +111,19 @@ public class WLTwitterActivity extends Activity implements ClickListener, Button
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void unregisterNewTweetReceiver() {
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterNewTweetReceiver();
     }
 
     @Override

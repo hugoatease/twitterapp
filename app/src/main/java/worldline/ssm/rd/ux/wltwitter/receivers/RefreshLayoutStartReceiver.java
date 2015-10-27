@@ -10,7 +10,7 @@ public class RefreshLayoutStartReceiver extends BroadcastReceiver {
 
     SwipeRefreshLayout swipeRefreshLayout;
 
-    public RefreshLayoutStartReceiver(SwipeRefreshLayout layout){
+    public RefreshLayoutStartReceiver(SwipeRefreshLayout layout) {
         swipeRefreshLayout = layout;
     }
 

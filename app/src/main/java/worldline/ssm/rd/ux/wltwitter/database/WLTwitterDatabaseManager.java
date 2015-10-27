@@ -83,9 +83,9 @@ public class WLTwitterDatabaseManager {
         return values;
     }
 
-    private static synchronized boolean doesContainTweet(Tweet tweet){
+    private static synchronized boolean doesContainTweet(Tweet tweet) {
         boolean result = false;
-        if ((null != tweet) && (!TextUtils.isEmpty(tweet.dateCreated))){
+        if ((null != tweet) && (!TextUtils.isEmpty(tweet.dateCreated))) {
             final Cursor cursor = WLTwitterApplication.getContext().getContentResolver().query(
                     WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL,
                     WLTwitterDatabaseContract.SELECTION_BY_CREATION_DATE, new String[]{tweet.dateCreated}, null);
@@ -113,7 +113,7 @@ public class WLTwitterDatabaseManager {
         return nbTweetsInserted;
     }
 
-    public static void testContentProvider(List<Tweet> tweets){
+    public static void testContentProvider(List<Tweet> tweets) {
         for (Tweet t : tweets) {
             if (!doesContainTweet(t)) {
                 insertTweetToDatabase(t, WLTwitterDatabaseContract.TWEETS_URI);
@@ -126,7 +126,7 @@ public class WLTwitterDatabaseManager {
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName1, "Toto", "Et plouf ! "), WLTwitterDatabaseContract.TWEETS_URI);
         insertTweetToDatabase(TwitterHelper.getOneFakeTweet(userName2, "Tata", "Et paf ! "), WLTwitterDatabaseContract.TWEETS_URI);
 
-         // Update sur le Tweet King Toto
+        // Update sur le Tweet King Toto
         ContentValues newValues = new ContentValues();
         newValues.put(WLTwitterDatabaseContract.USER_NAME, "Prince Toto");
         WLTwitterApplication.getContext().getContentResolver().update(

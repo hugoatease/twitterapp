@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import worldline.ssm.rd.ux.wltwitter.R;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterActivity;
 import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
@@ -40,6 +39,7 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private TweetAdapter adapter;
     private RefreshLayoutStartReceiver refreshLayoutStartReceiver;
     private RefreshLayoutStopReceiver refreshLayoutStopReceiver;
+    private NewTweetsReceiver mReceiver;
 
     @Nullable
     @Override
@@ -67,15 +67,29 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onPause() {
         super.onPause();
+        unregisterReceivers();
+    }
 
-        if(refreshLayoutStartReceiver != null){
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceivers();
+    }
+
+    public void unregisterReceivers() {
+        if (refreshLayoutStartReceiver != null) {
             getActivity().unregisterReceiver(refreshLayoutStartReceiver);
             refreshLayoutStartReceiver = null;
         }
 
-        if(refreshLayoutStopReceiver != null){
+        if (refreshLayoutStopReceiver != null) {
             getActivity().unregisterReceiver(refreshLayoutStopReceiver);
             refreshLayoutStopReceiver = null;
+        }
+
+        if (mReceiver != null) {
+            getActivity().unregisterReceiver(mReceiver);
+            mReceiver = null;
         }
     }
 
@@ -89,7 +103,12 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         if (!TextUtils.isEmpty(login)) {
             final Intent serviceIntent = new Intent(getActivity(), TweetService.class);
 
-            NewTweetsReceiver mReceiver = new NewTweetsReceiver();
+            if (mReceiver != null) {
+                getActivity().unregisterReceiver(mReceiver);
+                mReceiver = null;
+            }
+
+            mReceiver = new NewTweetsReceiver();
             getActivity().registerReceiver(mReceiver, new IntentFilter(Constants.General.ACTION_NEW_TWEETS));
 
             Bundle extras = new Bundle();
@@ -117,8 +136,7 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         adapter.changeCursor(cursor);
     }
 
-
-    private void setReceivers(){
+    private void setReceivers() {
         refreshLayoutStartReceiver = new RefreshLayoutStartReceiver(this.rootView);
         refreshLayoutStopReceiver = new RefreshLayoutStopReceiver(this.rootView);
         getActivity().registerReceiver(refreshLayoutStartReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STARTED));

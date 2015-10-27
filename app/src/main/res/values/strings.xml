@@ -37,5 +37,6 @@
     <string name="service_name">TweetService</string>
 
     <!-- Notification -->
-    <string name="new_notification">Vous avez %s nouveaux tweets</string>
+    <string name="new_tweet_notification">Vous avez %s nouveau tweet</string>
+    <string name="new_tweets_notification">Vous avez %s nouveaux tweets</string>
 </resources>
