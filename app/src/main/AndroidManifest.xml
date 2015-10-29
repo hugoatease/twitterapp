@@ -39,7 +39,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".receivers.RefreshLayoutStartReceiver"
+        <receiver android:name=".receivers.RefreshLayoutReceiver"
             android:enabled="true"
             android:exported="true"/>
 

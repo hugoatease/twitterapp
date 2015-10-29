@@ -26,8 +26,7 @@ import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
 import worldline.ssm.rd.ux.wltwitter.adapters.TweetAdapter;
 import worldline.ssm.rd.ux.wltwitter.database.WLTwitterDatabaseContract;
 import worldline.ssm.rd.ux.wltwitter.receivers.NewTweetsReceiver;
-import worldline.ssm.rd.ux.wltwitter.receivers.RefreshLayoutStartReceiver;
-import worldline.ssm.rd.ux.wltwitter.receivers.RefreshLayoutStopReceiver;
+import worldline.ssm.rd.ux.wltwitter.receivers.RefreshLayoutReceiver;
 import worldline.ssm.rd.ux.wltwitter.services.TweetService;
 import worldline.ssm.rd.ux.wltwitter.utils.Constants;
 
@@ -37,8 +36,8 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private String login;
 
     private TweetAdapter adapter;
-    private RefreshLayoutStartReceiver refreshLayoutStartReceiver;
-    private RefreshLayoutStopReceiver refreshLayoutStopReceiver;
+
+    private RefreshLayoutReceiver refreshLayoutReceiver;
     private NewTweetsReceiver mReceiver;
 
     @Nullable
@@ -77,14 +76,9 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     public void unregisterReceivers() {
-        if (refreshLayoutStartReceiver != null) {
-            getActivity().unregisterReceiver(refreshLayoutStartReceiver);
-            refreshLayoutStartReceiver = null;
-        }
-
-        if (refreshLayoutStopReceiver != null) {
-            getActivity().unregisterReceiver(refreshLayoutStopReceiver);
-            refreshLayoutStopReceiver = null;
+        if (refreshLayoutReceiver != null) {
+            getActivity().unregisterReceiver(refreshLayoutReceiver);
+            refreshLayoutReceiver = null;
         }
 
         if (mReceiver != null) {
@@ -137,10 +131,9 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void setReceivers() {
-        refreshLayoutStartReceiver = new RefreshLayoutStartReceiver(this.rootView);
-        refreshLayoutStopReceiver = new RefreshLayoutStopReceiver(this.rootView);
-        getActivity().registerReceiver(refreshLayoutStartReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STARTED));
-        getActivity().registerReceiver(refreshLayoutStopReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STOPPED));
+        refreshLayoutReceiver = new RefreshLayoutReceiver(this.rootView);
+        getActivity().registerReceiver(refreshLayoutReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STARTED));
+        getActivity().registerReceiver(refreshLayoutReceiver, new IntentFilter(Constants.General.ACTION_SERVICE_STOPPED));
     }
 
     @Override
